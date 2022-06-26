@@ -35,17 +35,17 @@
                 <div class="col-sm-4  mgb"><strong>Price($)</strong> </div>
                 <div class="col-sm-4  mgb"><strong>Unit(kg)</strong></div>
 
-                @foreach (var size in Model.Sizes)
+                @for(int i = 0; i < Model.Sizes.Count; i++)
                 {
                     <div class="col-sm-3 mgb">
-                        @Html.Label(size.Name, new { @class = "control-label" })
-                        @Html.HiddenFor(model => size.Name)
+                        @Html.Label(Model.Sizes[i].Name, new { @class = "control-label" })
+                        @Html.HiddenFor(model => model.Sizes[i].Name)
                     </div>
                     <div class="col-sm-4 mgb">
-                        @Html.TextBoxFor(model => size.Price, new { @class = "form-control", autocomplete = "off", @readonly = "true" })
+                        @Html.TextBoxFor(model => model.Sizes[i].Price, new { @class = "form-control", autocomplete = "off", @readonly = "true" })
                     </div>
                     <div class="col-sm-4 mgb">
-                        @Html.TextBoxFor(model => size.Unit, new { @class = "form-control", autocomplete = "off", @readonly = "true" })
+                        @Html.TextBoxFor(model => model.Sizes[i].Unit, new { @class = "form-control", autocomplete = "off", @readonly = "true" })
                     </div>
                 }
             </div>

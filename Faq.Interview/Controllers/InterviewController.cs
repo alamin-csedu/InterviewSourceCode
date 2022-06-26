@@ -50,7 +50,7 @@ namespace Faq.Interview.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateInput(false)]
         public ActionResult SaveData(DinnerViewModel model)
         {
             return Json(model, JsonRequestBehavior.AllowGet);
