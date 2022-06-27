@@ -61,7 +61,7 @@ namespace Faq.Interview.Controllers
             return View();
         }
 
-        public ActionResult Report(int? month = null)
+        public ActionResult Report(int month)
         {
             //Use this year value
             var year = DateTime.Today.Year;
@@ -69,7 +69,7 @@ namespace Faq.Interview.Controllers
             var dataProvider = new DataProvider();
             var data = dataProvider.Report(month);
 
-            return View();
+            return View(data);
         }
 
         public ActionResult Problem()

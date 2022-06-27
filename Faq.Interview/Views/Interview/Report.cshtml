@@ -1,4 +1,5 @@
-﻿@using System.Globalization
+﻿@model IEnumerable<Employee>
+@using System.Globalization
 @{
     ViewBag.Title = "Weekly salary seport";
     var months = Enumerable.Range(0, 12).Select(m => new DataListItem
@@ -18,7 +19,8 @@
         @Html.DropDownList("month",
             new SelectList(months, "Value", "Text"),
             "Please select a month",
-            new { id = "month", @class = "auto-postback month-dropdown" })
+            new { id = "month", @class = "auto-postback month-dropdown", onchange = "document.location.href = '/interview/report?month=' + this.options[this.selectedIndex].value;" })
+
 
         <br /> <br />
 
@@ -31,47 +33,67 @@
             <div class="col-sm-2"><strong>Week 4</strong> </div>
             <div class="col-sm-2"><strong>Week 5</strong></div>
         </div>
-        <div class="row mgb-sm table-row">
-            <div class="col-sm-2">Jhon</div>
-            <div class="col-sm-2"> </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-        </div>
 
-        <div class="row  mgb-sm table-row">
-            <div class="col-sm-2">Phil</div>
-            <div class="col-sm-2">$100</div>
-            <div class="col-sm-2">$100</div>
-            <div class="col-sm-2">$150</div>
-            <div class="col-sm-2">$150</div>
-            <div class="col-sm-2">--</div>
-        </div>
-        <div class="row  mgb-sm table-row">
-            <div class="col-sm-2">Smith</div>
-            <div class="col-sm-2">--</div>
-            <div class="col-sm-2">$100</div>
-            <div class="col-sm-2">$50</div>
-            <div class="col-sm-2">--</div>
-            <div class="col-sm-2">--</div>
-        </div>
-        <div class="row mgb-sm table-row">
-            <div class="col-sm-2">Roy</div>
-            <div class="col-sm-2"> </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-        </div>
-        <div class="row mgb-sm table-row">
-            <div class="col-sm-2">Adam</div>
-            <div class="col-sm-2"> </div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-2"></div>
-        </div>
+        @foreach (var employee in Model)
+        {
+            var amount = 0.0;
+            <div class="col-sm-2">@employee.Name</div>
+            @*Week 1*@
+            foreach (var salary in employee.Salaries)
+            {
+                if (salary.Date.Day <= 7)
+                {
+                    amount += salary.Amount;
+                }
+            }
+
+            <div class="col-sm-2">@amount</div>
+            amount = 0.0;
+            @*Week 2*@
+            foreach (var salary in employee.Salaries)
+            {
+                if (salary.Date.Day <= 14 && salary.Date.Day > 7)
+                {
+                    amount += salary.Amount;
+                }
+            }
+            <div class="col-sm-2">@amount</div>
+            amount = 0.0;
+            @*Week 3*@
+            foreach (var salary in employee.Salaries)
+            {
+                if (salary.Date.Day <= 21 && salary.Date.Day > 14)
+                {
+                    amount += salary.Amount;
+                }
+            }
+            <div class="col-sm-2">@amount</div>
+            amount = 0.0;
+            @*Week 4*@
+            foreach (var salary in employee.Salaries)
+            {
+                if (salary.Date.Day <= 28 && salary.Date.Day > 21)
+                {
+                    amount += salary.Amount;
+                }
+            }
+            <div class="col-sm-2">@amount</div>
+            amount = 0.0;
+            @*Week 5*@
+            foreach (var salary in employee.Salaries)
+            {
+                if (salary.Date.Day <= 31 && salary.Date.Day > 28)
+                {
+                    amount += salary.Amount;
+                }
+            }
+            <div class="col-sm-2">@amount</div>
+
+        }
+
+
+
+
     </div>
     <div class="col-sm-6">
         <h2>Description</h2>
@@ -97,6 +119,6 @@
 @section Scripts
 {
     <script type="text/javascript">
-            //Script code will go here
+                //Script code will go here
     </script>
 }
